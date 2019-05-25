@@ -1,0 +1,96 @@
+技术选型：
+    1、react react-router redux
+    2、ant design mobile
+
+    原型设计：
+        www.chainco.cn
+
+项目环境的搭建
+    1、安装yarn
+        npm i yarn -g
+    2、使用yarn global bin 查看全局安装目录，赋值目录，配置到path系统环境变量中
+
+安装react脚手架
+    1、yarn global add create-react-app（需要版本，输入错误的版本号，选择@1.2）
+    2、使用脚手架创建项目
+        create-react-app 
+    3、进入项目目录
+        cd 项目 
+        yarn start  
+
+三、目录清理，安装对应的项目插件
+
+四、ui框架antd-design-mobile安装
+    1、下载安装
+        yarn add antd-design-mobile -D
+    2、引入
+        在index.js中
+        import 'antd-mobile/dist/antd-mobile.css'; 
+    3、使用，直接从antd-mobile中结构想要使用的组件即可
+        // 比如需要使用button
+        import { Button } from 'antd-mobile';
+        ReactDOM.render(<Button>Start</Button>, mountNode);
+
+五、创建企业目录
+    1、安装react-router-dom@4.3.0
+        yarn add react-router-dom@4.3.0 -D
+    2、引入
+        import { HashRouter,Router,Switch } from 'react-router-dom'
+
+    3、项目目录assets api components pages
+        根据需求分组主路由和子路由，创建一个App.js作为渲染主路由的页面，挂载在index上
+        page项目目录划分，子路由目录创建在主路由下面
+
+    4、在app.js中引入主路由
+        Login、Reg、Nav
+        <HashRouter>
+            <Switch>
+                // 组件的拼接
+                <Router exact />
+            </Switch>
+        </HashRouter>
+    注意：react只支持css和sass，不支持less，要用less的话，修改配置文件
+
+今日目标
+    独立搭建项目，完成目录拆分
+    完成登录，注册，导航页面
+    导航使用，tabBar制作
+    使用router二级路由
+    
+
+DAY 02
+    地图定位
+        1、在index.html中引入script
+        2、使用的this指向问题
+        3、AMap应该使用window.AMap
+
+    react访问本地图片才需要require，访问http的不用
+
+DAY03
+    1、定义交互数据到reducer内
+        在reducers内写一个函数
+    2、在首页内发出通知改变交互数据
+        在action中写一个通知
+        在去reducers里面，先进行对象深拷贝，产生一个新数组，把点击的item放进去，在push进新数组中
+        let newArr = JSON.parse(JSON.stringjfy(state))
+
+        推荐: return [...state,action.item]
+        // 倒序，return [action.item,...state]
+        在使用的组件中，引入connect
+        使用connect()(Main)
+    3、在历史内，去除此数据，进行循环渲染
+        先删掉老的数据源(数组去重)
+        吧新数据源放到数组的最前面的位置
+
+    4、数据去重，并且置顶
+        for(let i = 0; i < state.length; i++){
+            if(state[i].id === action.item.id){
+                state.splice(i,1)
+                // 执行完就跳出
+                break;
+            }
+        }
+
+
+注册事件，，document.elementFromPoint()
+判断只能在右侧的条上滑动，获取他的class值，判断是否等于她才获取
